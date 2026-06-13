@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Смотреть на YouTube</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,sans-serif;display:flex;justify-content:center;align-items:center;height:100vh;background:#0f0f0f;color:#fff;text-align:center}
+a{background:#ff0000;color:#fff;padding:16px 40px;border-radius:8px;text-decoration:none;font-size:18px;font-weight:600}
+</style>
+</head>
+<body>
+<a id="btn" href="#">▶ Открыть в YouTube</a>
+<script>
+var p=new URLSearchParams(location.search);
+var v=p.get("v")||"";
+var c=p.get("c")||"";
+var t=v?"watch?v="+v:c?"channel/"+c:"";
+if(!t){document.getElementById("btn").textContent="Ссылка не найдена";}
+else{
+var d="https://www.youtube.com/"+t;
+var iOS=/iPhone|iPad|iPod/i.test(navigator.userAgent);
+var and=/Android/i.test(navigator.userAgent);
+var dl=iOS?"youtube://www.youtube.com/"+t:and?"intent://www.youtube.com/"+t+"#Intent;package=com.google.android.youtube;scheme=https;end":d;
+window.location=dl;
+setTimeout(function(){window.location=d;},1500);
+document.getElementById("btn").href=dl;
+}
+</script>
+</body>
+</html>
